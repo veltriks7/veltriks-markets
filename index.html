@@ -1814,7 +1814,7 @@ console.log('Session check:', {
   currentUserId: currentUser?.id,
   sessionError: sessionError?.message
 });
-   const {error:upErr}=await supabaseClient.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type||'image/jpeg'});
+   const {error:upErr}=await supabaseClient.storage.from('avatars').upload(path,file,{upsert:false,contentType:file.type||'image/jpeg'});
    if(upErr)throw new Error('Photo upload failed. Create a public Supabase Storage bucket named "avatars" and allow authenticated uploads. '+upErr.message);
    const {data:pub}=supabaseClient.storage.from('avatars').getPublicUrl(path);avatar=pub.publicUrl;
   }
