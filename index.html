@@ -1412,7 +1412,7 @@ let calendarCursor=new Date(), selectedCalendarDate=new Date().toISOString().sli
 function load(){try{trades=JSON.parse(localStorage.getItem(DB)||'[]');if(!Array.isArray(trades))trades=[];trades=trades.map(t=>({...t,pnl:Number.isFinite(Number(t.pnl))?Number(t.pnl):(Number(t.profit)||0)-(Number(t.loss)||0),lotSize:Number(t.lotSize)||0}));}catch(e){trades=[]}}
 let supabaseClient=null,currentUser=null,cloudSyncTimer=null,cloudBusy=false;
 const SUPABASE_URL='https://vemirxhyiegndzfzkopl.supabase.co';
-const SUPABASE_ANON_KEY='sb_publishable_tJYnKrQb5NuU4DDF9EKpxw_K2FPJzlQ';
+const SUPABASE_ANON_KEY='sb_publishable_3kTK1B0F0X6ohJz958eFPQ_JXZVV7u6';
 function setCloudStatus(message){const el=$('cloudStatus');if(el){const signed=/^SIGNED IN|^CLOUD SYNCED/i.test(String(message||''));el.classList.toggle('is-signed-in',signed);el.textContent=signed?'':message}}
 function userCacheKey(uid){return DB+'_user_'+uid}
 function persist(){try{localStorage.setItem(currentUser?userCacheKey(currentUser.id):DB,JSON.stringify(trades));if(currentUser)queueCloudSync();return true}catch(e){toast('Storage is full. Export your backup and use smaller screenshots.');return false}}
