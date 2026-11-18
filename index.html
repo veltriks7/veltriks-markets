@@ -1805,6 +1805,15 @@ $('saveAccountProfile')?.addEventListener('click',async()=>{
   if(file){
    const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
    const path=`${currentUser.id}/avatar-${Date.now()}.${ext}`;
+    const { data: { session }, error: sessionError } =
+  await supabaseClient.auth.getSession();
+
+console.log('Session check:', {
+  hasSession: !!session,
+  userId: session?.user?.id,
+  currentUserId: currentUser?.id,
+  sessionError: sessionError?.message
+});
    const {error:upErr}=await supabaseClient.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type||'image/jpeg'});
    if(upErr)throw new Error('Photo upload failed. Create a public Supabase Storage bucket named "avatars" and allow authenticated uploads. '+upErr.message);
    const {data:pub}=supabaseClient.storage.from('avatars').getPublicUrl(path);avatar=pub.publicUrl;
